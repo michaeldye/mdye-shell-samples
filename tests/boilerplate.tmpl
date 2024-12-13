@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# This is boilerplate test file content that is useful when defining a new test
+
+set -u
+set -o pipefail
+
+# common functions
+base=$(realpath "$(dirname "$0")"/../)
+source "$base/lib/common.bash"
+
+# "script" is script under test
+script=$(script_path "$base" "$0")
+
+# "work" is the created workdir for the script
+work=$(workdir "$script")
+
+# Exit on error; remove and check each assertion's result if script under test
+# is expected to raise errors
+set -e
+
+# execute script in its own subshell in workdir
+
+(execute $script"); assert_return_code $? 0
