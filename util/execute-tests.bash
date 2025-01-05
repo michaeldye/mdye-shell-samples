@@ -18,29 +18,36 @@ function usage() {
 test_scripts="$1"; shift
 
 total=0
-failures=0
 
 echo "NOTE: Set envvar 'DEBUG=y' to enable Bash trace capture to stderr"
 echo "NOTE: All stdout and stderr output from test execution is written to a workdir adjacent to the test" >&2
 
+declare -a testjobs
+
+# TODO: implement some job pooling here w/ a max forks option
 for test in "$(realpath "$test_scripts")"/*.bash; do
   sp=$(script_path "$PROJ_BASE" "$test")
   work=$(workdir "$test")
-  printf "%-50s " "$(basename "$test")" >&2
 
-  if execute "$test" "$sp" > "$work"/stdout 2> "$work"/stderr; then
-    echo "PASS" >&2
-  else
-    failures=$((failures+1))
-    echo "FAIL" >&2
-  fi
+  (execute "$test" "$sp" > "$work"/stdout 2> "$work"/stderr; exit $?) &
+  testjobs[$!]="$test"
+  printf "."
   total=$((total+1))
 done
 
-echo "Summary: $((total-failures))/$total tests succeeded" >&2
+echo ""
 
-if [[ "failures" -gt 0 ]]; then
-  echo "ERROR: test failures occurred." >&2
-fi
+failures=0
+
+# wait for / check jobs
+for job in $(jobs -p); do
+  wait "$job" || {
+    failures=$((failures+1))
+    echo "FAILURE: $(basename "${testjobs[$job]}")" >&2
+  }
+done
+
+
+echo "Test summary: $((total-failures))/$total tests succeeded" >&2
 
 exit $failures
