@@ -14,8 +14,9 @@ The simplest way to use this repository is to:
 
 1. Make changes to scripts and their tests
 1. Execute `make inspect` (or just `make`)
-1. Evaluate the test results summary to see if tests for each script passed or failed
+1. Evaluate the test results summary output to determine if a modified test failed (note that passing tests won't be listed)
 1. (optionally) Examine workdir content for each script and test (cf. [workdirs](#Workdirs))
+1. (optionally) Examine `shellcheck` output for warnings about code in scripts or tests
 
 ### Invoking Individual Tests
 
