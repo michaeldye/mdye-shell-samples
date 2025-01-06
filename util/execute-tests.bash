@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 set -u
 
-# linux-only realpath used
-PROJ_BASE=$(realpath "$(dirname "$0")"/../)
-source "$PROJ_BASE/lib/common.bash"
+base=$(realpath "$(dirname "$0")"/../)
+source "$base/lib/common.bash"
 
 function usage() {
   echo "$0 test_dir"
@@ -26,7 +25,7 @@ declare -a testjobs
 
 # TODO: implement some job pooling here w/ a max forks option
 for test in "$(realpath "$test_scripts")"/*.bash; do
-  sp=$(script_path "$PROJ_BASE" "$test")
+  sp=$(script_path "$base" "$test")
   work=$(workdir "$test")
 
   (execute "$test" "$sp" > "$work"/stdout 2> "$work"/stderr; exit $?) &
