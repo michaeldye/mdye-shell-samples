@@ -1,5 +1,8 @@
 # mdye-shell-samples
 
+[![Status](https://github.com/michaeldye/mdye-shell-samples/actions/workflows/shell-samples.yaml/badge.svg)](https://github.com/michaeldye/mdye-shell-samples/actions)
+
+
 ## Introduction
 
 Shell and GNU / Linux tooling can be nuanced. I built this repository of shell samples to capture these nuances in a form that permits easy review and experimentation. Each script in the [src](./src) dir is a script containing code on a specific topic. Functional tests of each script can be found in [tests](./tests) with names of the form `ftest-<script-name>`.
@@ -21,6 +24,10 @@ The simplest way to use this repository is to:
 ### Invoking Individual Tests
 
 It's useful to work on scripts in isolation to experiment with them. Each test script can be invoked directly, for example `./tests/ftest-check-envvars.bash`. When executed this way, stdout and stderr will be printed to the console. For information about the workdirs created when tests are executed, see [workdirs](#Workdirs).
+
+### Envvars
+
+* `DEBUG` - Set envvar `DEBUG=y` to enable trace output in captured `stderr` by the test runner.
 
 ### Cleaning Up
 

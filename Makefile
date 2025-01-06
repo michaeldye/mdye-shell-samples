@@ -22,14 +22,16 @@ clean:
 
 pristine: clean
 	@echo "++ $@"
-	git reset --hard HEAD
-	git clean -fdx
+	-git checkout .
+	-git reset --hard HEAD
+	-git clean -fdx
 
-$(TEST_LOG_DIR):
-	mkdir -p $@
+show-make:
+	which make
+	make --version
 
 test:
 	@echo "++ $@"
 	util/execute-tests.bash $(CURDIR)/tests
 
-.PHONY: all check inspect lint test test-log
+.PHONY: all check inspect lint test show-make
