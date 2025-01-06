@@ -9,20 +9,28 @@ Shell and GNU / Linux tooling can be nuanced. I built this repository of shell s
 
 ## Easy Mode Tryout
 
-To skip native installation of dependencies, execute tests in a Docker container with a command like:
+To skip native installation of dependencies, install [Docker](https://www.docker.com/) and execute tests in a container by invoking:
 
 ```
-docker run --rm -it $(docker build -q .) make
+docker build -t localhost/shell-samples .
+docker run -it localhost/shell-samples make
+```
+
+To clean up the created image, execute:
+
+```
+docker rmi localhost/shell-samples
 ```
 
 ## Playground-Style Use
 
 ### Preconditions and Compatibility
 
-All provided scripts and tests are intended to be compatible with modern Linux systems running Bash 4.2 or newerand the GNU versions of programs `bc`, `column`, `awk`, `sed`. To enable linting functionality, install [shellcheck](https://github.com/koalaman/shellcheck).
+All provided scripts and tests are intended to be compatible with modern Linux systems running Bash 4.2 or newer and recent GNU versions of programs `bc`, `column`, `awk`, `sed`. To enable linting functionality, install [shellcheck](https://github.com/koalaman/shellcheck). Note that both CI and the Docker image use recent, stock Ubuntu packages.
 
-### Use
-The simplest way to use this repository is to:
+### Steps
+
+To experiment and interact with the code, you might:
 
 1. Make changes to scripts and their tests
 1. Execute `make inspect` (or just `make`)
