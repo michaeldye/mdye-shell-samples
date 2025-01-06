@@ -7,12 +7,21 @@
 
 Shell and GNU / Linux tooling can be nuanced. I built this repository of shell samples to capture these nuances in a form that permits easy review and experimentation. Each script in the [src](./src) dir contains code on a specific topic. Functional tests of each script can be found in [tests](./tests) with names of the form `ftest-<script-name>`.
 
-## Preconditions and Compatibility
+## Easy Mode Tryout
 
-Provided scripts and tests are intended to be compatible with modern Linux systems running Bash 4.2 or newer. To enable linting functionality, install [shellcheck](https://github.com/koalaman/shellcheck).
+To skip native installation of dependencies, execute tests in a Docker container with a command like:
 
-## Functional Testing
+```
+docker run --rm -it $(docker build -q .) make
+```
 
+## Playground-Style Use
+
+### Preconditions and Compatibility
+
+All provided scripts and tests are intended to be compatible with modern Linux systems running Bash 4.2 or newerand the GNU versions of programs `bc`, `column`, `awk`, `sed`. To enable linting functionality, install [shellcheck](https://github.com/koalaman/shellcheck).
+
+### Use
 The simplest way to use this repository is to:
 
 1. Make changes to scripts and their tests
@@ -23,7 +32,7 @@ The simplest way to use this repository is to:
 
 Note that the [test runner](util/execute-tests.bash) is really naive about concurrent test execution: the simultaneity isn't controlled, all tests are launched in a subshell as quickly as they can be. Be careful if you expand the samples to include expensive operations or increase their volume considerably.
 
-### Invoking Individual Tests
+#### Invoking Individual Tests
 
 It's useful to work on scripts in isolation to experiment with them. Each test script can be invoked directly, for example `./tests/ftest-check-envvars.bash`. When executed this way, stdout and stderr will be printed to the console. For information about the workdirs created when tests are executed, see [workdirs](#Workdirs).
 
