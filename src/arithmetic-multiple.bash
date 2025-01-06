@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-# multiple operations separated by , are evaluated; only the last is returned
+# Multiple operations separated by comman are evaluated; only the last is
+# returned
 t2=$((a = 9 * 2, a / 3))
 
 echo "Result of calc: $t2" >&2

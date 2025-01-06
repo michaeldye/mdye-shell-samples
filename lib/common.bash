@@ -41,7 +41,7 @@ function script_path() {
 
 function execute() {
   local script="$1"; shift
-  local args="$*"
+#  local args="$*"
 
   local work
   work=$(workdir "$script")
@@ -52,8 +52,15 @@ function execute() {
     OPTS=""
   fi
 
+  if [[ -p /dev/stdin ]]; then
+    input="$(cat -)"
+  else
+    input=""
+  fi
+
+  # shellcheck disable=SC2086
   (cd "$work" || exit 2; \
-    env SHELLOPTS=$OPTS "$script" "$args")
+    env SHELLOPTS=$OPTS $script) <<<"$input"
   return $?
 }
 
