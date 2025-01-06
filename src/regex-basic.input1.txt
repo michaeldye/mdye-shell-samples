@@ -1,0 +1,3 @@
+abe:x:954:954:Abraham Lincoln:/:/usr/bin/zsh
+ron:x:955:0:Ronald Reagan:/:/bin/bash
+bill:x:956:956:William Jefferson Clinton:/:/usr/bin/nologin

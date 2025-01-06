@@ -26,4 +26,12 @@ chararr=( {A..Z} {a..z} {0..9} )
 echo "${chararr[*]}"
 echo "Wrote generated brace expanded content to stdout" >&2
 
+# Brace expansion doesn't permit variables so we use 'seq' instead
+end_incl=5
+for ix in $(seq 1 "$end_incl"); do
+  echo "$ix"
+done
+
+echo "Wrote 1...5 (incl) to stdout" >&2
+
 exit 0
