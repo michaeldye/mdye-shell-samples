@@ -46,3 +46,9 @@ Note that a separate workdir (this time adjacent to the test executed) is used t
   ```
   while true; do while inotifywait -e close_write -r .; do make ; done; done
   ```
+
+## References
+
+* Updated Bash scripting manual: https://github.com/pmarinov/bash-scripting-guide
+* Bash Academy: https://guide.bash.academy/
+* HackerRank Linux Shell problems: https://www.hackerrank.com/domains/shell
