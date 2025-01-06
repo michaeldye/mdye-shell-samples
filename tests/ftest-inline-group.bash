@@ -9,12 +9,9 @@ source "$base/lib/common.bash"
 script=$(script_path "$base" "$0")
 
 read -r -d '' expected <<-'EOF'
-	61
-	75
-	117
-	075, 0x75
-	61, 117
-	A
+	3
+	zurr durr
+	9001,18002
 EOF
 
 set -e

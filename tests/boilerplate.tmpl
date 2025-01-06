@@ -15,10 +15,21 @@ script=$(script_path "$base" "$0")
 # "work" is the created workdir for the script
 work=$(workdir "$script")
 
+read -r -d '' expected <<-'EOF'
+	somestdoutcontent
+EOF
+
 # Exit on error; remove and check each assertion's result if script under test
-# is expected to raise errors
+# is expected to raise errors. Note that this must be done after we abuse the
+# delimiter on read above
 set -e
 
-# execute script in its own subshell in workdir
+# Use fd 3 (normally unused) to output from tee so we can both capture stdout
+# and display it on the console when the test is executed
+exec 3>&1
 
-(execute $script"); assert_return_code $? 0
+# Execute script in its own subshell in workdir
+actual=(execute "$script" | tee /dev/fd/3); assert_return_code $? 0
+
+# check stdout
+assert_str "$actual" "$expected"

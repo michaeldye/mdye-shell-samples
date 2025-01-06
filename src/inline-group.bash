@@ -2,9 +2,6 @@
 
 set -u
 
-BASE=$(dirname "$0")
-source "$BASE/common.bash"
-
 ## Example 1
 
 # makes inline group or "code block" (not really an "anonymous function" as
@@ -24,14 +21,15 @@ sum=$({
   exit 4
 }
 
-echo "sum: $sum"
+echo "$sum"
+echo "Wrote sum to stdout" >&2
 
 ## Example 2
+of1="zurr.out"
 
 # setup
-of1=$(script_outfile "$0" "zurr.out")
 echo -e "zurr\ndurr" > "$of1"
-
+echo "Wrote content of file $of1 to stdout" >&2
 
 # code block with io redirection; we use the non-private var behavior to our
 # advantage
@@ -40,24 +38,26 @@ echo -e "zurr\ndurr" > "$of1"
   read -r line2
 } < "$of1"
 
-echo "lines from file: $line1 \ $line2"
-
+echo "$line1 $line2"
+echo "Output lines read from $of1" >&2
 
 # Example 3
 
 someval=9001
 someotherval=$((someval*2))
 
-of2=$(script_outfile "$0" "computed-vals.out")
+of2="computed-vals.out"
 
 # everything in the code block will get redirected to the file; note that the
 # block runs in a subshell so we can't pipe to it and have a var in the block
 # take the piped input.
 {
   echo "Header"
-  echo "Computed vals: $someval,$someotherval"
+  echo "$someval,$someotherval"
 } > "$of2"
 
-echo "Wrote values to local file $of2"
+# ... and read the last line back for ftest
+tail -n1 "$of2"
+echo "Wrote compute values to local file $of2 with header addition" >&2
 
 exit 0

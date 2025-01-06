@@ -38,3 +38,11 @@ In order to remove all generated content, execute `make clean`. To revert all mo
 When invoked by a test or the test runner, each script will be executed in a workdir adjacent to it. For example, when `tests/ftest-truncate.bash` is executed, it runs `src/truncate.bash` in directory `src/truncate.bash.workdir/`. This makes it easy to use the filesystem from a script under test and evaluate the state it consumes or creates.
 
 Note that a separate workdir (this time adjacent to the test executed) is used to capture `stdout` and `stderr` from the script under test when the test runner is invoked, for example by executing `make test`. So if `tests/ftest-subshell.bash` is executed by the runner, `tests/ftest-subshell.bash.workdir/` will be created and populated with the files `stdout` and `stderr`, each capturing output from the script under test at execution time.
+
+## Useful
+
+* With [inotifywait](https://man7.org/linux/man-pages/man1/inotifywait.1.html) you can trigger a make target when a file changes on disk:
+
+  ```
+  while true; do while inotifywait -e close_write -r .; do make ; done; done
+  ```
