@@ -21,6 +21,8 @@ The simplest way to use this repository is to:
 1. (optionally) Examine workdir content for each script and test (cf. [workdirs](#Workdirs))
 1. (optionally) Examine `shellcheck` output for warnings about code in scripts or tests
 
+Note that the [test runner](util/execute-tests.bash) is really naive about concurrent test execution: the simultaneity isn't controlled, all tests are launched in a subshell as quickly as they can be. Be careful if you expand the samples to include expensive operations or increase their volume considerably.
+
 ### Invoking Individual Tests
 
 It's useful to work on scripts in isolation to experiment with them. Each test script can be invoked directly, for example `./tests/ftest-check-envvars.bash`. When executed this way, stdout and stderr will be printed to the console. For information about the workdirs created when tests are executed, see [workdirs](#Workdirs).

@@ -29,7 +29,7 @@ set -e
 exec 3>&1
 
 # Execute script in its own subshell in workdir
-actual=(execute "$script" | tee /dev/fd/3); assert_return_code $? 0
+actual=$(execute "$script" | tee /dev/fd/3); assert_return_code $? 0
 
 # check stdout
 assert_str "$actual" "$expected"
