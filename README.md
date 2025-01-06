@@ -13,7 +13,7 @@ To skip native installation of dependencies, install [Docker](https://www.docker
 
 ```
 docker build -t localhost/shell-samples .
-docker run -it localhost/shell-samples make
+docker run --rm -it localhost/shell-samples make
 ```
 
 To clean up the created image, execute:
