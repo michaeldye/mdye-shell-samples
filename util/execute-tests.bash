@@ -38,8 +38,8 @@ echo ""
 
 failures=0
 
-# wait for / check jobs
-for job in $(jobs -p); do
+# check testjobs, wait if necessary
+for job in "${!testjobs[@]}"; do
   wait "$job" || {
     failures=$((failures+1))
     echo "FAILURE: $(basename "${testjobs[$job]}")" >&2
