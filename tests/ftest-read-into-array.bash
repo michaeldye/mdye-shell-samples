@@ -16,22 +16,25 @@ script=$(script_path "$base" "$0")
 work=$(workdir "$script")
 
 read -r -d '' input <<-'EOF'
-	single line
-	false
+	uno
+	dos
+	tres
+	cuatro
+	cinco
 	one two three four five
-	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-	scelerisque, ante vitae elementum rhoncus, nulla nisl tristique nunc,
-	ac rhoncus orci dolor vel velit. Phasellus lorem quam, faucibus vel
-	urna in, rutrum venenatis libero. Pellentesque purus sapien, dapibus
-	vel pulvinar sed, scelerisque eu urna. Phasellus id ante imperdiet,
-	porttitor sem a, hendrerit tellus.
+	eins;zwei;drei;fier;funf
+	ichi
+	ni
+	san
+	shi
+	go
 EOF
 
 read -r -d '' expected <<-'EOF'
-	single line
-	f
+	uno,dos,tres,cuatro,cinco
 	one,two,three,four,five
-	53
+	eins,zwei,drei,fier,funf
+	ichi ni san shi go
 EOF
 
 # Exit on error; remove and check each assertion's result if script under test

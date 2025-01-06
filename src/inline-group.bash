@@ -35,12 +35,12 @@ echo "Wrote content of file $of1 to stdout" >&2
 # Code block with io redirection; we use the non-private var behavior to our
 # advantage
 {
-  read -r line1
-  read -r line2
+  read -r word1
+  read -r word2
 } < "$of1"
 
-echo "$line1 $line2"
-echo "Output lines read from $of1" >&2
+echo "$word1 $word2"
+echo "Output words read from $of1" >&2
 
 ## Example 3
 
