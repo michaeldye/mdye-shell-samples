@@ -12,14 +12,18 @@ for name in {0..3}; do
   echo "$name" > "$name.txt"
 done
 
-# brace expansion is done by shell; cat command sees: "cat 0.txt 1.txt 2.txt 3.txt".
-# Note that you could use {0..3} here too if we wanted
+# brace expansion is done by shell; cat command sees: "cat 0.txt 1.txt 2.txt
+# 3.txt". Note that you could use {0..3} here too if we wanted
 content_all="$(cat {0,1,2,3}.txt)"
 
 echo "$content_all"
+echo "Wrote content from concatenated output files to stdout" >&2
 
-# "extended brace expansion" (introduced in bash version 3) supports other useful ranges
-# note that we're putting the range output into an array
+# "extended brace expansion" (introduced in bash version 3) supports other
+# useful ranges note that we're putting the range output into an array
 chararr=( {A..Z} {a..z} {0..9} )
 
 echo "${chararr[*]}"
+echo "Wrote generated brace expanded content to stdout" >&2
+
+exit 0

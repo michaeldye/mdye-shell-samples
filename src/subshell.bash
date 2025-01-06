@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-# v only avail in subshell
-# exit code from subshell captured for eval
+# v only avail in subshell exit code from subshell captured for eval
 (v="zurm"; echo "Value in subshell $v"; [[ "$v" == "foo" ]]; exit $?)
 co=$?
 
@@ -11,6 +10,5 @@ else
   echo "ERROR: subshell exited with unexpected code" >&2
   exit 4
 fi
-
 
 exit 0
