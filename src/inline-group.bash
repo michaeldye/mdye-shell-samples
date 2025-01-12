@@ -14,7 +14,7 @@ sum=$({
   echo $((v1+v2))
 })
 
-# "-v" is used to check if variable is defined (new since Bash 4.2)
+# "-v" is used to check if variable is defined
 # shellcheck disable=SC2031
 [[ -v v1 ]] && {
   echo "ERROR: local var 'v1' from function defined in outer scope and shouldn't be" >&2

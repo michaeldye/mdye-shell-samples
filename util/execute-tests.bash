@@ -15,17 +15,23 @@ function usage() {
 }
 
 test_scripts="$1"; shift
-
 total=0
 
-echo "NOTE: Set envvar 'DEBUG=y' to enable Bash trace capture to stderr"
-echo "NOTE: All stdout and stderr output from test execution is written to a workdir adjacent to the test" >&2
+if [[ "${DEBUG:=}" ]]; then
+  echo "NOTE: 'DEBUG' on so Bash tracing is on and will be redirected to a test's stderr capture"
+else
+  echo "NOTE: 'DEBUG' not on. Set envvar 'DEBUG=y' to enable Bash tracing if desired"
+fi
 
+echo "NOTE: All stdout and stderr output from test execution is written to a workdir adjacent to the test" >&2
 declare -a testjobs
 
 # TODO: implement some job pooling here w/ a max forks option
 for test in "$(realpath "$test_scripts")"/*.bash; do
-  sp=$(script_path "$base" "$test")
+  sp=$(script_path "$base" "$test") || {
+    echo -e "\nERROR: Script modified while setting up test: $test" >&2
+    exit 55
+  }
   work=$(workdir "$test")
 
   (execute "$test" "$sp" > "$work"/stdout 2> "$work"/stderr; exit $?) &
