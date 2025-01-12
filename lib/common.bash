@@ -41,7 +41,6 @@ function script_path() {
 
 function execute() {
   local script="$1"; shift
-#  local args="$*"
 
   local work
   work=$(workdir "$script")
