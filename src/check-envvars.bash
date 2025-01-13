@@ -35,14 +35,49 @@ fi
 # Test as above but with tricky values. Note that even when using `set -u`, all
 # of the following have undesirable behavior *in that they evaluate true just
 # like a proper string value does*:
-export TRICKYVAL=null; [[ "${TRICKYVAL:=}" ]] && echo "Bare null TRICKYVAL looks set" >&2
-export TRICKYVAL=false; [[ "${TRICKYVAL:=}" ]] && echo "Bare false TRICKYVAL looks set" >&2
-export TRICKYVAL=0; [[ "${TRICKYVAL:=}" ]] && echo "0 TRICKYVAL looks set" >&2
+#
+# case: bare null
+export TRICKYVAL=null
+if [[ "${TRICKYVAL:=}" ]]; then
+  echo "Bare null TRICKYVAL looks set" >&2
+else
+  exit 8
+fi
+
+# case: bare false
+export TRICKYVAL=false
+if [[ "${TRICKYVAL:=}" ]]; then
+  echo "Bare false TRICKYVAL looks set" >&2
+else
+  exit 9
+fi
+
+# case: 0
+export TRICKYVAL=0
+if [[ "${TRICKYVAL:=}" ]]; then
+  echo "0 TRICKYVAL looks set" >&2
+else
+  exit 10
+fi
 
 # On the other hand, the following have expected behavior w/r/t checking if an
 # envvar is defined:
-export TRICKYVAL=; [[ "${TRICKYVAL:=}" ]] || echo "Phew, empty TRICKYVAL looks *unset* to test" >&2
-export TRICKYVAL=""; [[ "${TRICKYVAL:=}" ]] || echo "Phew, empty string TRICKYVAL looks *unset* to test" >&2
 
+# case: empty value
+export TRICKYVAL=
+if [[ "${TRICKYVAL:=}" ]]; then
+  exit 11
+else
+  echo "Phew, empty TRICKYVAL looks *unset* to test" >&2
+fi
+
+# case: empty string
+export TRICKYVAL=""
+
+if [[ "${TRICKYVAL:=}" ]]; then
+  exit 12
+else
+  echo "Phew, empty string TRICKYVAL looks *unset* to test" >&2
+fi
 
 exit 0
