@@ -18,6 +18,13 @@ else
   exit 2
 fi
 
+# negated...
+if [[ ! "$word_yes" =~ ^[yY] ]]; then
+  echo "Bug: negated test of regex match expected to work" >&2
+  exit 3
+else
+  echo "Flexible yes (negated match)"
+fi
 
 # Sample 2
 

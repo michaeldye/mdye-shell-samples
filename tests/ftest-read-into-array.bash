@@ -35,6 +35,7 @@ read -r -d '' expected <<-'EOF'
 	one,two,three,four,five
 	eins,zwei,drei,fier,funf
 	ichi ni san shi go
+
 EOF
 
 # Exit on error; remove and check each assertion's result if script under test

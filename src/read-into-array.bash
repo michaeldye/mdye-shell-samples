@@ -46,7 +46,8 @@ echo "Wrote string of num_names_de array content to stdout" >&2
 # char won't be reached by read until EOF.
 read -d '' -r -a num_names_jp
 
-(IFS=' '; echo "${num_names_jp[*]}")
-echo "Wrote string of num_names_jp array content to stdout" >&2
+# output all elements, space-delimited
+(IFS=' '; echo "${num_names_jp[@]}")
+echo "Wrote elements from num_names_jp array to stdout" >&2
 
 exit 0

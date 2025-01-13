@@ -11,12 +11,9 @@ script=$(script_path "$base" "$0")
 work=$(workdir "$script")
 
 read -r -d '' expected <<-'EOF'
-	Flexible yes
-	Flexible yes (negated match)
-	Hard n/N
-	abe:x:954:954:Abraham Lincoln:/:/usr/bin/zsh
-	ron:x:955:0:Ronald Reagan:/:/bin/bash
-	ron:Ronald Reagan
+	gouda
+	2 3 4
+	8 9
 EOF
 
 set -e
