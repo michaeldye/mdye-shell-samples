@@ -20,10 +20,13 @@ declare -a evenmore=(9)
 declare -a numbers
 numbers+=( "${some[@]}" "${somemore[@]}" "${evenmore[@]}" )
 
+echo "${numbers[4]}"
+echo "Wrote 4th element from numbers array to stdout" >&2
+
 # output slice of array, start at 2 and retrieve 3 elements total (0-indexed)
 (IFS=' '; echo "${numbers[@]:2:3}")
 # output slice of array, all elements starting from 3 through end (inclusive, 0-indexed)
 (IFS=' '; echo "${numbers[@]:8}")
-echo "Wrote slices of strings from num_names_jp array to stdout" >&2
+echo "Wrote slices of strings from numbers array to stdout" >&2
 
 exit 0
